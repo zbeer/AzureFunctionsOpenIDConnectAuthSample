@@ -66,9 +66,10 @@ Task("Push")
         ApiKey = gitHubToken
     };
 
-    var packageFilePath = GetFiles("..\\OidcApiAuthorization\\bin\\**\\*.nupkg").Single();
-
-    DotNetNuGetPush(packageFilePath, settings);
+    foreach (var file in GetFiles("..\\artifacts\\*.nupkg"))
+    {
+        DotNetNuGetPush(file, settings);
+    }
 });
 
 //////////////////////////////////////////////////////////////////////
