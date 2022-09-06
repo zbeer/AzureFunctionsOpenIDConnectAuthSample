@@ -42,7 +42,7 @@ Task("Build")
 Task("Test")
     .Does(() =>
 {
-    DotNetTest("../AzureFunctionsOpenIDConnectAuthSample.sln", new DotNetTestSettings
+    DotNetTest("../AzureFunctionsOpenIDConnectAuthSample.sln", new DotNetTestSettings()
     {
         NoBuild = true,
     });
@@ -51,7 +51,10 @@ Task("Test")
 Task("Package")
     .Does(() =>
 {
-    DotNetPack("../OidcApiAuthorization/OidcApiAuthorization.csproj");
+    DotNetPack("../OidcApiAuthorization/OidcApiAuthorization.csproj", new DotNetPackSettings()
+    {
+        OutputDirectory = "..//artifacts",
+    });
 });
 
 Task("Push")
