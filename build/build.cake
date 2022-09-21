@@ -88,7 +88,7 @@ Task("Build-Test")
     .IsDependentOn("Build")
     .IsDependentOn("Test");
 
-Task("Build-Test-Pack")
+Task("Build-Test-Package")
     .IsDependentOn("Clean")
     .IsDependentOn("Build")
     .IsDependentOn("Test")
