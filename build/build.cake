@@ -88,6 +88,12 @@ Task("Build-Test")
     .IsDependentOn("Build")
     .IsDependentOn("Test");
 
+Task("Build-Test-Pack")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Package");
+
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
 //////////////////////////////////////////////////////////////////////
