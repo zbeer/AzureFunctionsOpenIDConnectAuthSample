@@ -1,7 +1,13 @@
 #tool nuget:?package=NuGet.CommandLine&version=6.2.1
 #tool nuget:?package=GitVersion.CommandLine&version=5.10.3
 
-var target = Argument("target", "Build-Test-Package");
+#load "./build.local.cake"
+
+//////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+//////////////////////////////////////////////////////////////////////
+
+var target = Argument("target", "Build-Test");
 var gitHubToken = Argument("gitHubToken", EnvironmentVariable("GITHUB_TOKEN") ?? null);
 
 //////////////////////////////////////////////////////////////////////
@@ -30,12 +36,6 @@ Task("Clean")
 Task("Build")
     .Does(() =>
 {
-    GitVersion(new GitVersionSettings()
-    {
-        ArgumentCustomization = args => args.Prepend("/updateprojectfiles"),
-        WorkingDirectory = ".."
-    });
-
     DotNetBuild("../AzureFunctionsOpenIDConnectAuthSample.sln");
 });
 
@@ -45,12 +45,19 @@ Task("Test")
     DotNetTest("../AzureFunctionsOpenIDConnectAuthSample.sln", new DotNetTestSettings()
     {
         NoBuild = true,
+        Filter = "TestCategory!=Smoke"
     });
 });
 
 Task("Package")
     .Does(() =>
 {
+    GitVersion(new GitVersionSettings()
+    {
+        ArgumentCustomization = args => args.Prepend("/updateprojectfiles"),
+        WorkingDirectory = ".."
+    });
+
     DotNetPack("../OidcApiAuthorization/OidcApiAuthorization.csproj", new DotNetPackSettings()
     {
         OutputDirectory = "..//artifacts",
@@ -76,11 +83,10 @@ Task("Push")
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
-Task("Build-Test-Package")
+Task("Build-Test")
     .IsDependentOn("Clean")
     .IsDependentOn("Build")
-    .IsDependentOn("Test")
-    .IsDependentOn("Package");
+    .IsDependentOn("Test");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
