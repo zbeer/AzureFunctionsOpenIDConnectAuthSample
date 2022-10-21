@@ -11,7 +11,7 @@ jobs:
       uses: cake-build/cake-action@v1
       with:
         script-path: build/build.cake
-        target: Build-Test-Package
+        target: Run-Local-Smoke-Test
         verbosity: Verbose
     - name: Upload resulting artifacts
       uses: actions/upload-artifact@v1

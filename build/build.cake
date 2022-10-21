@@ -9,6 +9,10 @@
 
 var target = Argument("target", "Build-Test");
 var gitHubToken = Argument("gitHubToken", EnvironmentVariable("GITHUB_TOKEN") ?? null);
+var authUrl = Argument("authUrl", EnvironmentVariable("AUTH_URL") ?? null);
+var audience = Argument("audience", EnvironmentVariable("AUDIENCE") ?? null);
+var clientId = Argument("clientId", EnvironmentVariable("CLIENT_ID") ?? null);
+var clientSecret = Argument("clientSecret", EnvironmentVariable("CLIENT_SECRET") ?? null);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS

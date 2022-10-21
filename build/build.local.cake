@@ -51,6 +51,13 @@ Task("Local-Integration-Test")
         DotNetBuild(testProject.FullPath);
 
     ReplaceTextInFiles("../**/bin/**/appSettings.json", "%API_URL%", "http://localhost:7071");
+    ReplaceTextInFiles("../**/bin/**/appSettings.json", "%AUTH_URL%", authUrl);
+    ReplaceTextInFiles("../**/bin/**/appSettings.json", "%AUDIENCE%", audience);
+    ReplaceTextInFiles("../**/bin/**/appSettings.json", "%CLIENT_ID%", clientId);
+    ReplaceTextInFiles("../**/bin/**/appSettings.json", "%CLIENT_SECRET%", clientSecret);
+
+    ReplaceTextInFiles("../**/bin/**/local.Settings.json", "%AUDIENCE%", audience);
+    ReplaceTextInFiles("../**/bin/**/local.Settings.json", "%AUTH_URL%", authUrl);
 
     using(var api = StartAndReturnProcess(_azureFunctionsCoreToolsExe,
                                           new ProcessSettings
@@ -79,6 +86,6 @@ Task("Local-Integration-Test")
 //////////////////////////////////////////////////////////////////////
 
 Task("Run-Local-Smoke-Test")
-    .IsDependentOn("Build-Test")
+    .IsDependentOn("Build-Test-Package")
     .IsDependentOn("Install-Azure-Functions-Core-Tools")
     .IsDependentOn("Local-Integration-Test");
