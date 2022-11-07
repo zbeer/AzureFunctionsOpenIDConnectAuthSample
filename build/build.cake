@@ -21,7 +21,8 @@ var clientSecret = Argument("clientSecret", EnvironmentVariable("CLIENT_SECRET")
 Task("Clean")
     .Does(() =>
 {
-    Information("AuthUrl: " + authUrl);
+    foreach(var envVar in EnvironmentVariables())
+        Information("Key: {0}\tValue: \"{1}\"", envVar.Key, envVar.Value);
 
     IEnumerable<DirectoryPath> binDirectories;
     IEnumerable<DirectoryPath> objDirectories;
