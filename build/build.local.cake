@@ -47,8 +47,6 @@ Task("Install-Azure-Functions-Core-Tools")
 Task("Local-Integration-Test")
     .Does(() =>
 {
-    Information("AuthUrl: " + authUrl);
-
     foreach (FilePath testProject in GetFiles("../**/*SmokeTests.csproj"))
         DotNetBuild(testProject.FullPath);
 
