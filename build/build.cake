@@ -1,8 +1,18 @@
 #tool nuget:?package=NuGet.CommandLine&version=6.2.1
 #tool nuget:?package=GitVersion.CommandLine&version=5.10.3
 
-var target = Argument("target", "Build-Test-Package");
+#load "./build.local.cake"
+
+//////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+//////////////////////////////////////////////////////////////////////
+
+var target = Argument("target", "Build-Test");
 var gitHubToken = Argument("gitHubToken", EnvironmentVariable("GITHUB_TOKEN") ?? null);
+var authUrl = Argument("authUrl", EnvironmentVariable("AUTH_URL") ?? null);
+var audience = Argument("audience", EnvironmentVariable("AUDIENCE") ?? null);
+var clientId = Argument("clientId", EnvironmentVariable("CLIENT_ID") ?? null);
+var clientSecret = Argument("clientSecret", EnvironmentVariable("CLIENT_SECRET") ?? null);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -30,12 +40,6 @@ Task("Clean")
 Task("Build")
     .Does(() =>
 {
-    GitVersion(new GitVersionSettings()
-    {
-        ArgumentCustomization = args => args.Prepend("/updateprojectfiles"),
-        WorkingDirectory = ".."
-    });
-
     DotNetBuild("../AzureFunctionsOpenIDConnectAuthSample.sln");
 });
 
@@ -45,12 +49,19 @@ Task("Test")
     DotNetTest("../AzureFunctionsOpenIDConnectAuthSample.sln", new DotNetTestSettings()
     {
         NoBuild = true,
+        Filter = "TestCategory!=Smoke"
     });
 });
 
 Task("Package")
     .Does(() =>
 {
+    GitVersion(new GitVersionSettings()
+    {
+        ArgumentCustomization = args => args.Prepend("/updateprojectfiles"),
+        WorkingDirectory = ".."
+    });
+
     DotNetPack("../OidcApiAuthorization/OidcApiAuthorization.csproj", new DotNetPackSettings()
     {
         OutputDirectory = "..//artifacts",
@@ -75,6 +86,11 @@ Task("Push")
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
+
+Task("Build-Test")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test");
 
 Task("Build-Test-Package")
     .IsDependentOn("Clean")

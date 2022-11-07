@@ -9,9 +9,14 @@ jobs:
       uses: actions/checkout@v1
     - name: Run the Cake script
       uses: cake-build/cake-action@v1
+      env:
+        AUTH_URL: ${{ secrets.AUTH_URL }}
+        AUDIENCE: ${{ secrets.AUDIENCE }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       with:
         script-path: build/build.cake
-        target: Build-Test-Package
+        target: Run-Local-Smoke-Test
         verbosity: Verbose
     - name: Upload resulting artifacts
       uses: actions/upload-artifact@v1
