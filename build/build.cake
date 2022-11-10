@@ -71,15 +71,22 @@ Task("Package")
 Task("Push")
     .Does(() =>
 {
-    var settings = new DotNetNuGetPushSettings
+    string sourceName = "GitHub";
+
+    DotNetNuGetAddSource(sourceName, new DotNetNuGetSourceSettings
     {
         Source = "https://nuget.pkg.github.com/zbeer/index.json",
-        ApiKey = gitHubToken
-    };
+        UserName = "USERNAME",
+        Password = gitHubToken,
+        StorePasswordInClearText = true,
+    });
 
     foreach (var file in GetFiles("..\\artifacts\\*.nupkg"))
     {
-        DotNetNuGetPush(file, settings);
+        DotNetNuGetPush(file, new DotNetNuGetPushSettings
+        {
+            Source = sourceName
+        });
     }
 });
 
