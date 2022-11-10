@@ -76,8 +76,7 @@ Task("Push")
     var settings = new DotNetNuGetPushSettings
     {
         Source = "https://nuget.pkg.github.com/zbeer/index.json",
-        ApiKey = gitHubToken,
-        Verbosity = DotNetVerbosity.Detailed,
+        ApiKey = gitHubToken
     };
 
     foreach (var file in GetFiles("..\\artifacts\\*.nupkg"))
