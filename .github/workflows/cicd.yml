@@ -14,6 +14,7 @@ jobs:
         AUDIENCE: ${{ secrets.AUDIENCE }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         script-path: build/build.cake
         target: Build-Test-Package-Push
