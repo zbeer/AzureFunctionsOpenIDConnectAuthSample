@@ -18,7 +18,7 @@ jobs:
       with:
         script-path: build/build.cake
         target: Build-Test-Package-Push
-        verbosity: Verbose
+        verbosity: Diagnostic
     - name: Upload resulting artifacts
       uses: actions/upload-artifact@v1
       with:
