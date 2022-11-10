@@ -105,13 +105,6 @@ Task("Build-Test-Package")
     .IsDependentOn("Test")
     .IsDependentOn("Package");
 
-Task("Build-Test-Package-Push")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Build")
-    .IsDependentOn("Test")
-    .IsDependentOn("Package")
-    .IsDependentOn("Push");
-
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
 //////////////////////////////////////////////////////////////////////
