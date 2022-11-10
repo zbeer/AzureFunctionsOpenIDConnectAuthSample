@@ -16,7 +16,7 @@ jobs:
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       with:
         script-path: build/build.cake
-        target: Run-Local-Smoke-Test
+        target: Build-Test-Package-Push
         verbosity: Verbose
     - name: Upload resulting artifacts
       uses: actions/upload-artifact@v1

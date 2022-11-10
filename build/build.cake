@@ -71,6 +71,8 @@ Task("Package")
 Task("Push")
     .Does(() =>
 {
+    Information("GitHub token: " + gitHubToken);
+
     var settings = new DotNetNuGetPushSettings
     {
         Source = "https://nuget.pkg.github.com/zbeer/index.json",
@@ -97,6 +99,13 @@ Task("Build-Test-Package")
     .IsDependentOn("Build")
     .IsDependentOn("Test")
     .IsDependentOn("Package");
+
+Task("Build-Test-Package-Push")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Package")
+    .IsDependentOn("Push");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
