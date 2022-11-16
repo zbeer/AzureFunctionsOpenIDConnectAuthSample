@@ -8,7 +8,7 @@ jobs:
     - name: Get source
       uses: actions/checkout@v1
     - name: Run the Cake script
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       env:
         AUTH_URL: ${{ secrets.AUTH_URL }}
         AUDIENCE: ${{ secrets.AUDIENCE }}
@@ -37,14 +37,14 @@ jobs:
         name: artifacts
         path: artifacts
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
+      uses: gittools/actions/gitversion/setup@v0.9.15
       with:
           versionSpec: '5.x'
     - name: Run GitVersion
       id: gitversion
-      uses: gittools/actions/gitversion/execute@v0.9.7
+      uses: gittools/actions/gitversion/execute@v0.9.15
     - name: Run the Cake script
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
