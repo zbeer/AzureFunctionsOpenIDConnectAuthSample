@@ -27,7 +27,7 @@ Task("Install-Azure-Functions-Core-Tools")
     {
         azureFunctionCliDll = azureFunctionCliFiles.First();
         azureFunctionCliDllFileVersionInfo = FileVersionInfo.GetVersionInfo(azureFunctionCliDll.ToString());
-        if (azureFunctionCliDllFileVersionInfo.FileVersion != "4.0.4704")
+        if (azureFunctionCliDllFileVersionInfo.FileVersion != "4.0.4829")
             needToInstall = true;
     }
     else
@@ -35,12 +35,12 @@ Task("Install-Azure-Functions-Core-Tools")
 
     if (needToInstall)
     {
-        NpmInstall(new NpmInstallSettings().AddPackage("azure-functions-core-tools", "4.0.4704")
+        NpmInstall(new NpmInstallSettings().AddPackage("azure-functions-core-tools", "4.0.4829")
                                            .InstallLocally());
     }
     else
     {
-        Information("Azure Function Core Tools v4.0.4704 already installed.");
+        Information("Azure Function Core Tools v4.0.4829 already installed.");
     }
 });
 
