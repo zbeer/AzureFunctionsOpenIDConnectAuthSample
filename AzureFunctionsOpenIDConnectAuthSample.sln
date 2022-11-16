@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{13A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6F55AFC0-0710-4FDC-BD64-1CD30EDE412E}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnetcore-ci.yml = .github\workflows\dotnetcore-ci.yml
+		.github\workflows\dotnetcore-ci.yml = .github\workflows\cicd.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleFunctionApp.SmokeTests", "SampleFunctionApp.SmokeTests\SampleFunctionApp.SmokeTests.csproj", "{E6F5AA37-F7A8-433F-B18F-CB326AD3E7D1}"
